@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    
+    <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-app.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#config-web-app -->
+        <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-storage.js"></script>
+
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyB8i40Npn45XsjWQnrRY4RbaAEXvlYam2s",
+                authDomain: "imercy-easydrone.firebaseapp.com",
+                databaseURL: "https://imercy-easydrone.firebaseio.com",
+                projectId: "imercy-easydrone",
+                storageBucket: "imercy-easydrone.appspot.com",
+                messagingSenderId: "303395435795",
+                appId: "1:303395435795:web:980d151dbbf6b88b"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+        </script>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>WebDrone</title>
+        <meta name="description" content="Upload FW Drone">
+        <link rel="stylesheet" href="main.css">
+        
+        <script>
+        
+                function sendfile() {
+                    var storage = firebase.storage();
+                    var db = firebase.firestore();
+                    
+                    var file = document.getElementById("file_var").files;
+                    var MyBlob = new Blob(file, {type : 'text/html'});
+                    
+                    var a = document.getElementById("iddrone_var").value;
+                    var b = document.getElementById("version").value;
+                    var mdp = document.getElementById("mdpdrone_var").value;
+                    
+                    var root = storage.ref();
+                    var fwd = root.child('droneFW');
+                    var fold = fwd.child(a);
+                    
+                    var UP = fold.child('fw.html').put(MyBlob);
+                    
+                    var df = db.collection("drone");
+                    
+                    df.doc(a).get().then(function(doc) {
+                        if (doc.exists) {
+                            var data = doc.data()
+                            
+                            if (data.mdpdrone == mdp) {
+                                alert("FW Uploading...")
+                                
+                                UP.on('state_changed', function(snapshot){
+                        
+                                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                    console.log('Upload a ' + progress + "%");
+                        
+                        
+                                }, function(error){
+                                    console.log("Erreur !");
+                                }, function() {
+                                    UP.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                                        console.log("Fichier disponible ici", downloadURL);
+                                    })
+                                })
+                                
+                                df.doc(a).update({
+                                    version: b,
+                                })
+                                
+                            } else {
+                                alert("Mot de passe incorect")
+                                console.log(data)
+                                return
+                            }
+                        } else {
+                            alert("Erreur dans l'ID du drone ou drone non identifié")
+                            return
+                        }
+                    })
+                    
+                }
+            
+        </script>
+        
+    </head>
+    <body>
+        
+        <h1>Upload FW Drone</h1
+            
+            
+            <form id="uploaddrone" name="UploadDrone" action="action.php" method="post">
+                <p>ID Drone : <input type="text" name="iddrone" id="iddrone_var" /></p>
+                <p>Mot de Passe : <input type="password" name="mdpdrone" id="mdpdrone_var"/></p>
+                <p>FW Upload : <input type="file" name="file" id="file_var"/></p>
+                <p>Version : <input type="text" name="ver" id="version"</p>
+                <input type="button" name="submit" value="Envoyer" onclick="sendfile()" />
+            </form>
+        
+     
+    </body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <!----------------Meta--------------->
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>WebDrone - Login Compte</title>
+        <meta name="description" content="Login Compte">
+        <link rel="stylesheet" href="main.css">
+        
+        
+        <!----------------Import--------------->
+        
+        <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-app.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#config-web-app -->
+        <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-auth.js"></script>
+        <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+        
+        <!--------------CSS----------------->
+        
+        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+        
+        <!----------------Script--------------->
+
+        <script>
+
+            // ---------------Init Firebase-----------
+            
+            var firebaseConfig = {
+                apiKey: "AIzaSyB8i40Npn45XsjWQnrRY4RbaAEXvlYam2s",
+                authDomain: "imercy-easydrone.firebaseapp.com",
+                databaseURL: "https://imercy-easydrone.firebaseio.com",
+                projectId: "imercy-easydrone",
+                storageBucket: "imercy-easydrone.appspot.com",
+                messagingSenderId: "303395435795",
+                appId: "1:303395435795:web:980d151dbbf6b88b"
+            };
+
+            firebase.initializeApp(firebaseConfig);
+            
+            // ---------------Script-----------
+            
+            var ui = new firebaseui.auth.AuthUI(firebase.auth());
+            
+            ui.start('#firebaseui-auth-container', {
+            signInOptions: [{
+                provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+                requireDisplayName: false,
+                queryParameterForSignInSuccessUrl: 'signInSuccessUrl',
+                signInFlow: 'popup',
+                signInSuccessUrl: './createdrone.html',
+            }]
+            });
+        </script>
+        
+    </head>
+    
+    <!----------------HTML--------------->
+    
+    <body>
+        
+        <h1>Création Compte</h1>
+        
+            <div id="firebaseui-auth-container"></div>
+     
+    </body>
+</html>

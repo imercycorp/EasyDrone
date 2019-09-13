@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    
+    <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-app.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#config-web-app -->
+        <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-firestore.js"></script>
+
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyB8i40Npn45XsjWQnrRY4RbaAEXvlYam2s",
+                authDomain: "imercy-easydrone.firebaseapp.com",
+                databaseURL: "https://imercy-easydrone.firebaseio.com",
+                projectId: "imercy-easydrone",
+                storageBucket: "imercy-easydrone.appspot.com",
+                messagingSenderId: "303395435795",
+                appId: "1:303395435795:web:980d151dbbf6b88b"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+        </script>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>WebDrone</title>
+        <meta name="description" content="Création Drone">
+        <link rel="stylesheet" href="main.css">
+        
+        <script>
+        
+                function senddb() {
+                    var db = firebase.firestore();
+                    
+                    var c = document.getElementById("iddrone_var").value;
+                    var b = document.getElementById("ndrone_var").value;
+                    var d = document.getElementById("mdpdrone_var").value;
+                    var e = document.getElementById("mdpdrone_c_var").value;
+                    var v = "1.0"
+                    var f = Number(c)
+                    
+                    if (d == e) {
+                        alert("Le drone est maintenant enregistré !")
+                        
+                    } else {
+                        alert("Les mots de passe ne coresspondent pas ! ")
+                        return
+                    }
+                    
+                    db.collection("drone").doc(c).set({
+                        iddrone: f,
+                        ndrone: b,
+                        mdpdrone: d,
+                        version: v,
+                    })
+                    .then(function() {
+                        console.log("[DEBUG] Création Drone: ", b);
+                    })
+                    .catch(function(error) {
+                        console.error("[DEBUG] Erreur lors de la création du Drone ", error);
+                    });
+                }
+            
+        </script>
+        
+    </head>
+    <body>
+        
+        <h1>Création Drone</h1
+            
+            
+            <form id="formdrone" name="FormDrone" action="action.php" method="post">
+                <p>ID Drone : <input type="text" name="iddrone" id="iddrone_var" /></p>
+                <p>Nom Drone : <input type="text" name="ndrone" id="ndrone_var"/></p>
+                <p>Mot de Passe : <input type="password" name="mdpdrone" id="mdpdrone_var"/></p>
+                <p>Confirmer MDP: <input type="password" name="mdpdrone" id="mdpdrone_c_var"/></p>
+                <input type="button" name="submit" value="Envoyer" onclick="senddb()" />
+            </form>
+        
+     
+    </body>
+</html>
