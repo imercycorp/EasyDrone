@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4c4d2bbc-f29f-4783-8f0d-4d611a99b803" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/FW_User/fw.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ressources/config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ressources/db.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/connectwifi.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.py" beforeDir="false" afterPath="$PROJECT_DIR$/core.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/g.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

@@ -1,10 +1,7 @@
 from core import nexus
 from core import FW
+from core import manageData
 
-n = nexus("1111", "123")
-n.checkMDP()
-v = n.getVersion()
-print(v)
+m = manageData()
 
-f = FW(n.returnKey(), n.returnMDP(), "1241", n.getVersion())
-f.getFW()
+m.writeDB("test", "test")
